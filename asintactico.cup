@@ -1,10 +1,16 @@
- 
-   
 /* ---------------Seccion de declaraciones preliminares--------------------*/
 package gramatica;
 
 import java_cup.runtime.*;
+import estructuradedatos.*;
 import java.io.FileReader;
+
+
+action code {:
+
+            static ListaSimple tablaSimbolos = new ListaSimple();
+
+            :}
 
 parser code {:
 
@@ -59,11 +65,17 @@ start with programa;
    
 programa ::=      listavariables listadeclaraciones;
 
-listavariables ::= listavariables declaracionvariable
+listavariables ::= listavariables:lv declaracionvariable:dv
                   |
-                  declaracionvariable ;
+                  declaracionvariable:dv ;
 
-declaracionvariable ::= DECLARAR ID NEWLINE;
+declaracionvariable ::= DECLARAR ID:nom
+                  {:
+                  System.out.println(nom);
+                  tablaSimbolos.insertarFinal(nom.toString());
+                  tablaSimbolos.imprimirLista();
+                  :}
+                  NEWLINE;
 
 listadeclaraciones ::= listadeclaraciones:ld declaracion:d
                   |
@@ -74,15 +86,31 @@ declaracion ::=   moverdedo:md | declaracionseleccion:ds | declaracioniteracion:
 
 moverdedo ::=     MOVER dedo tipo NEWLINE;
 
-dedo ::=          MENIQUE
+dedo ::=          MENIQUE:m
+                  {:
+                  System.out.println("Dedo: " + p);
+                  :}
                   |
-                  ANULAR
+                  ANULAR:a
+                  {:
+                  System.out.println("Dedo: " + p);
+                  :}
                   |
-                  MEDIO
+                  MEDIO:m
+                  {:
+                  System.out.println("Dedo: " + p);
+                  :}
                   |
-                  INDICE
+                  INDICE:i
+                  {:
+                  System.out.println("Dedo: " + p);
+                  :}
                   |
-                  PULGAR;
+                  PULGAR:p
+                  {:
+                  System.out.println("Dedo: " + p);
+                  :}
+                  ;
 
 tipo ::=          RECTO NUM | CIRCULAR NUM;
   
