@@ -103,7 +103,7 @@ Id = [a-zA-Z|_]([a-zA-Z|0-9]{0,31})
 
     {Espacio}          {  /* ignora el espacio */      } 
 
-    {Newline}            {  System.out.print(yytext());
+    {Newline}          {  System.out.print(yytext());
                           return symbol(sym.NEWLINE);    }
 }
 
