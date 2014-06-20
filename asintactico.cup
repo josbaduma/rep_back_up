@@ -1,0 +1,256 @@
+ 
+   
+/* ---------------Seccion de declaraciones preliminares--------------------*/
+package gramatica;
+
+import java_cup.runtime.*;
+import java.io.FileReader;
+
+parser code {:
+
+    public void report_error(String message, Object info) {
+        StringBuilder m = new StringBuilder("Error");
+        if (info instanceof java_cup.runtime.Symbol) {
+            java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
+            if (s.left >= 0) {                
+                m.append(" in line "+(s.left+1));
+                if (s.right >= 0)
+                    m.append(", column "+(s.right+1));
+            }
+        }
+        m.append(" : "+message);
+        System.err.println(m);
+    }
+
+    public void report_fatal_error(String message, Object info) {
+        report_error(message, info);
+        System.exit(1);
+    }
+
+    public static void main(String[] args){
+        try {
+            AnalizadorSintactico asin = new AnalizadorSintactico(
+                    new AnalizadorLexico( new FileReader(args[0])));
+            Object result = asin.parse().value;
+            System.out.println("\n*** Resultados finales ***");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+:};
+
+terminal           OP_SUMA, OP_RESTA, OP_MULT, OP_DIV, PARENIZQ, PARENDER, LLAVDER, LLAVIZQ,
+                   NEWLINE, ID, TRUE, FALSE, SI, SINO, HAGA, ENTONCES, MIENTRAS, MENQUE, MAYQUE,
+                   MENIGUAL, MAYIGUAL, IGUAL, DISTINTO, DECLARAR, RECTO, CIRCULAR,
+                   MENIQUE, ANULAR, MEDIO, INDICE, PULGAR, MOVER;
+
+terminal Integer   NUM;
+
+non terminal Object     programa, expresion, operadorrelacional, expresioncondicion, declaracion, listadeclaracionescondicionadas,
+                        listadeclaraciones, declaracioniteracion, listavariables, declaracionvariable, moverdedo, dedo, tipo,
+                        declaracionseleccion;
+non terminal Integer    expresionsuma, expresionmult, termino;
+   
+   
+precedence left OP_SUMA, OP_RESTA; 
+precedence left OP_MULT, OP_DIV;
+
+start with programa;
+   
+programa ::=      listavariables listadeclaraciones;
+
+listavariables ::= listavariables declaracionvariable
+                  |
+                  declaracionvariable ;
+
+declaracionvariable ::= DECLARAR ID NEWLINE;
+
+listadeclaraciones ::= listadeclaraciones:ld declaracion:d
+                  |
+                  declaracion:d;
+
+declaracion ::=   moverdedo:md | declaracionseleccion:ds | declaracioniteracion:di;
+                  
+
+moverdedo ::=     MOVER dedo tipo NEWLINE;
+
+dedo ::=          MENIQUE
+                  |
+                  ANULAR
+                  |
+                  MEDIO
+                  |
+                  INDICE
+                  |
+                  PULGAR;
+
+tipo ::=          RECTO NUM | CIRCULAR NUM;
+  
+expresion ::=     expresionsuma:a operadorrelacional:oprel expresionsuma:b
+                  {:
+                  String val1=a.toString();
+                  String val2=b.toString();
+                  if(oprel.toString().compareTo(">") == 0){
+                    if(a > b){
+                      System.out.println(true);
+                    }else{
+                      System.out.println(false);
+                    }
+                  }
+                  if(oprel.toString().compareTo("<") == 0){
+                    if(a < b){
+                      System.out.println(true);
+                    }else{
+                      System.out.println(false);
+                    }
+                  }
+                  if(oprel.toString().compareTo("<=") == 0){
+                    if(a <= b){
+                      System.out.println(true);
+                    }else{
+                      System.out.println(false);
+                    }
+                  }
+                  if(oprel.toString().compareTo(">=") == 0){
+                    if(a >= b){
+                      System.out.println(true);
+                    }else{
+                      System.out.println(false);
+                    }
+                  }
+                  if(oprel.toString().compareTo("==") == 0){
+                    if(a == b){
+                      System.out.println(true);
+                    }else{
+                      System.out.println(false);
+                    }
+                  }
+                  if(oprel.toString().compareTo("!=") == 0){
+                    if(a != b){
+                      System.out.println(true);
+                    }else{
+                      System.out.println(false);
+                    }
+                  }
+                  :}
+                  |
+                  expresionsuma:e
+                  {:
+                    System.out.println(" Correcto "); 
+                  :}
+                  ;
+                  
+operadorrelacional ::= MENQUE:op
+                  {:
+                    RESULT=op;
+                  :}
+                  |
+                  MAYQUE:op
+                  {:
+                    RESULT=op;
+                  :}
+                  |
+                  MENIGUAL:op
+                  {:
+                    RESULT=op;
+                  :}
+                  |
+                  MAYIGUAL:op
+                  {:
+                    RESULT=op;
+                  :}
+                  |
+                  IGUAL:op
+                  {:
+                    RESULT=op;
+                  :}
+                  |
+                  DISTINTO:op
+                  {:
+                    RESULT=op;
+                  :}
+                  ;
+
+expresionsuma     ::=  expresionsuma:e OP_SUMA expresionsuma:f
+                  {:
+                    RESULT = new Integer(e.intValue() + f.intValue());
+                  :}
+                  |
+                  expresionsuma:e OP_RESTA expresionsuma:f
+                  {:
+                    RESULT = new Integer(e.intValue() - f.intValue());
+                  :}
+                  |
+                  expresionmult:n
+                  {:
+                    RESULT = n; 
+                  :}
+                  ;
+
+expresionmult     ::=  expresionmult:f OP_MULT expresionsuma:e
+                  {:
+                    RESULT = new Integer(f.intValue() * e.intValue());
+                  :}
+                  |
+                  expresionmult:f OP_DIV expresionsuma:e
+                  {:
+                    RESULT = new Integer(f.intValue() / e.intValue());
+                  :}
+                  |
+                  termino:t
+                  {:
+                    RESULT = t;
+                  :}
+                  ;
+
+termino       ::=  PARENIZQ expresion:e PARENDER
+                  {:
+                    RESULT = (Integer)e;
+                  :}
+                  |
+                  NUM:e
+                  {:
+                    RESULT = e;
+                  :}
+                  |
+                  ID:var
+                  {:
+                  :}
+                  ; 
+
+expresioncondicion ::= expresion:e
+                  {:
+                  :}
+                  |
+                  TRUE:t 
+                  {: 
+                    RESULT = t;
+                  :}
+                  |
+                  FALSE:f
+                  {:
+                    RESULT = f;
+                  :}
+                  ;
+
+listadeclaracionescondicionadas ::= declaracion:d
+                  {:
+                  :}
+                  |
+                  LLAVIZQ listadeclaraciones:ld LLAVDER
+                  {:
+                  :}
+                  ;
+
+declaracionseleccion ::= SI PARENIZQ expresioncondicion:ec PARENDER
+                  ENTONCES listadeclaracionescondicionadas:ldca
+                  SINO listadeclaracionescondicionadas:ldcb
+                  |
+                  SI PARENIZQ expresioncondicion:ec PARENDER ENTONCES listadeclaracionescondicionadas:ldc
+                  ;
+
+declaracioniteracion ::= MIENTRAS PARENIZQ expresioncondicion:ec PARENDER
+                  HAGA listadeclaracionescondicionadas:ldc
+                  |
+                  HAGA listadeclaracionescondicionadas:ldc MIENTRAS expresioncondicion:ec
+                  ;
