@@ -46,7 +46,7 @@ parser code {:
 :};
 
 terminal           OP_SUMA, OP_RESTA, OP_MULT, OP_DIV, PARENIZQ, PARENDER, LLAVDER, LLAVIZQ,
-                   NEWLINE, ID, TRUE, FALSE, SI, SINO, HAGA, ENTONCES, MIENTRAS, MENQUE, MAYQUE,
+                   ID, TRUE, FALSE, SI, SINO, HAGA, ENTONCES, MIENTRAS, MENQUE, MAYQUE,
                    MENIGUAL, MAYIGUAL, IGUAL, DISTINTO, DECLARAR, RECTO, CIRCULAR,
                    MENIQUE, ANULAR, MEDIO, INDICE, PULGAR, MOVER;
 
@@ -60,6 +60,7 @@ non terminal Integer    expresionsuma, expresionmult, termino;
    
 precedence left OP_SUMA, OP_RESTA; 
 precedence left OP_MULT, OP_DIV;
+precedence left SINO;
 
 start with programa;
    
@@ -71,11 +72,9 @@ listavariables ::= listavariables:lv declaracionvariable:dv
 
 declaracionvariable ::= DECLARAR ID:nom
                   {:
-                  System.out.println(nom);
-                  tablaSimbolos.insertarFinal(nom.toString());
-                  tablaSimbolos.imprimirLista();
+                  tablaSimbolos.insertarFinal(nom.toString(), 0, nomleft);
                   :}
-                  NEWLINE;
+                  ;
 
 listadeclaraciones ::= listadeclaraciones:ld declaracion:d
                   |
@@ -84,31 +83,34 @@ listadeclaraciones ::= listadeclaraciones:ld declaracion:d
 declaracion ::=   moverdedo:md | declaracionseleccion:ds | declaracioniteracion:di;
                   
 
-moverdedo ::=     MOVER dedo tipo NEWLINE;
+moverdedo ::=     MOVER dedo tipo
+                  {:
+                  
+                  :};
 
 dedo ::=          MENIQUE:m
                   {:
-                  System.out.println("Dedo: " + p);
+                  RESULT = m;
                   :}
                   |
                   ANULAR:a
                   {:
-                  System.out.println("Dedo: " + p);
+                  RESULT = a;
                   :}
                   |
                   MEDIO:m
                   {:
-                  System.out.println("Dedo: " + p);
+                  RESULT = m;
                   :}
                   |
                   INDICE:i
                   {:
-                  System.out.println("Dedo: " + p);
+                  RESULT = i;
                   :}
                   |
                   PULGAR:p
                   {:
-                  System.out.println("Dedo: " + p);
+                  RESULT = p;
                   :}
                   ;
 
@@ -222,7 +224,11 @@ expresionmult     ::=  expresionmult:f OP_MULT expresionsuma:e
                   |
                   expresionmult:f OP_DIV expresionsuma:e
                   {:
+                  if(e != 0) {
                     RESULT = new Integer(f.intValue() / e.intValue());
+                  }else{
+                    System.err.println("ERROR: DIVISION POR CERO NO VALIDA");
+                  }
                   :}
                   |
                   termino:t
@@ -233,7 +239,7 @@ expresionmult     ::=  expresionmult:f OP_MULT expresionsuma:e
 
 termino       ::=  PARENIZQ expresion:e PARENDER
                   {:
-                    RESULT = (Integer)e;
+                  RESULT = (int)e;
                   :}
                   |
                   NUM:e
@@ -243,6 +249,7 @@ termino       ::=  PARENIZQ expresion:e PARENDER
                   |
                   ID:var
                   {:
+                  RESULT = tablaSimbolos.buscar(var.toString()).getValor();
                   :}
                   ; 
 

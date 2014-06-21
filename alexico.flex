@@ -21,7 +21,7 @@ import java.io.Reader;
 %}
 
 Newline = \r|\n|\r\n
-Espacio     = [ \t\f]
+Espacio     = {Newline}|[ \t\f]
 Num = 0 | [1-9][0-9]*
 Id = [a-zA-Z|_]([a-zA-Z|0-9]{0,31})
 
@@ -100,10 +100,9 @@ Id = [a-zA-Z|_]([a-zA-Z|0-9]{0,31})
     {Num}              {  System.out.print(yytext()); 
                           return symbol(sym.NUM, new Integer(yytext()));   }
 
+    {Newline}          {  System.out.print(yytext());  }
     {Espacio}          {  /* ignora el espacio */      } 
 
-    {Newline}          {  System.out.print(yytext());
-                          return symbol(sym.NEWLINE);    }
 }
 
 [^]                    { throw new Error("Caracter ilegal <"+yytext()+">"); }

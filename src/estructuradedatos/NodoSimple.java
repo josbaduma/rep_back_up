@@ -15,34 +15,38 @@ public class NodoSimple {
     /**
      * Declaracion de parametros
      */
-    private String _dato;
+    private String _nombre;
+    
+    private int _linea, _valor;
     
     private NodoSimple _siguiente;
     
     /**
      * Constructor de la clase
-     * @param pDato 
+     * @param pNombre 
      */
-    public NodoSimple(String pDato)
+    public NodoSimple(String pNombre, int pLinea, int  pValor)
     {
-        this._dato = pDato;
+        this._nombre = pNombre;
+        this._linea = pLinea;
+        this._valor = pValor;
         this._siguiente = null;
     }
     
     /**
-     * Se obtiene el dato almacenado
+     * Se obtiene el nombre almacenado
      * @return 
      */
-    public String getDato() {
-        return _dato;
+    public String getNombre() {
+        return _nombre;
     }
 
     /**
-     * Se modifica el dato del nodo
-     * @param pDato 
+     * Se modifica el nombre del nodo
+     * @param pNombre 
      */
-    public void setDato(String pDato) {
-        this._dato = pDato;
+    public void setNombre(String pNombre) {
+        this._nombre = pNombre;
     }
 
     /**
@@ -61,5 +65,19 @@ public class NodoSimple {
         this._siguiente = pSiguiente;
     }
 
-    
+    public int getLinea() {
+        return _linea;
+    }
+
+    public void setLinea(int pLinea) {
+        this._linea = pLinea;
+    }
+
+    public int getValor() {
+        return _valor;
+    }
+
+    public void setValor(int pValor) {
+        this._valor = pValor;
+    }
 }

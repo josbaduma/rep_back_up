@@ -1,12 +1,22 @@
 declarar variable
-si(3>0)entonces { mover meñique recto 0
+mientras (32>21) haga { mover meñique recto 0
 mover anular recto 25
 mover medio recto 50
 mover índice recto 70
 mover pulgar recto 90
-} sino { mover meñique circular 100
+mover meñique circular 100
 mover anular circular 75
 mover medio circular 50
 mover índice circular 25
 mover pulgar circular 0
+mover meñique recto 90
+mover anular recto 75
+mover medio recto 50
+mover índice recto 25
+mover pulgar recto 0
+mover meñique circular 0
+mover anular circular 25
+mover medio circular 50
+mover índice circular 50
+mover pulgar circular 100
 }
