@@ -1,5 +1,6 @@
 declarar variable
-si(3>0)entonces {
+variable = 4*7/3+1-5
+si(variable>0)entonces {
 mover meñique recto 0
 mover anular recto 25
 mover medio recto 50
@@ -8,9 +9,9 @@ mover pulgar recto 90
 }
 sino
 {
-mover meñique circular 100
-mover anular circular 75
+mover índice circular 100
+mover pulgar circular 75
 mover medio circular 50
-mover índice circular 25
-mover pulgar circular 0
+mover meñique circular 25
+mover anular circular 0
 }

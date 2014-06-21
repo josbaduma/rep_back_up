@@ -39,7 +39,7 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
   private static final String ZZ_CMAP_PACKED = 
     "\11\0\1\3\1\2\1\0\1\3\1\1\22\0\1\3\1\23\6\0"+
     "\1\14\1\15\1\12\1\10\1\0\1\11\1\0\1\13\1\4\11\5"+
-    "\2\0\1\20\1\22\1\21\2\0\32\7\4\0\1\6\1\0\1\31"+
+    "\2\0\1\21\1\20\1\22\2\0\32\7\4\0\1\6\1\0\1\31"+
     "\1\7\1\41\1\43\1\27\1\30\1\40\1\37\1\34\2\7\1\32"+
     "\1\42\1\35\1\36\1\50\1\46\1\25\1\33\1\24\1\26\1\44"+
     "\4\7\1\16\1\7\1\17\157\0\1\47\3\0\1\45\uff0e\0";
@@ -57,13 +57,13 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
   private static final String ZZ_ACTION_PACKED_0 =
     "\1\0\1\1\2\2\1\3\2\4\1\5\1\6\1\7"+
     "\1\10\1\11\1\12\1\13\1\14\1\15\1\16\1\17"+
-    "\2\1\12\5\1\1\2\5\1\20\1\21\1\22\1\23"+
-    "\5\5\1\24\6\5\1\0\13\5\1\0\3\5\1\0"+
-    "\2\5\1\25\4\5\1\26\1\27\2\5\1\0\3\5"+
-    "\1\0\2\5\1\30\1\5\1\31\2\5\1\32\1\0"+
-    "\1\5\1\33\1\5\1\0\3\5\1\34\1\5\1\0"+
-    "\2\5\1\35\1\36\3\5\1\37\3\5\1\40\1\41"+
-    "\1\42\1\43\30\5";
+    "\1\20\1\1\12\5\1\1\2\5\1\21\1\22\1\23"+
+    "\1\24\5\5\1\25\6\5\1\0\13\5\1\0\3\5"+
+    "\1\0\2\5\1\26\4\5\1\27\1\30\2\5\1\0"+
+    "\3\5\1\0\2\5\1\31\1\5\1\32\2\5\1\33"+
+    "\1\0\1\5\1\34\1\5\1\0\3\5\1\35\1\5"+
+    "\1\0\2\5\1\36\1\37\3\5\1\40\3\5\1\41"+
+    "\1\42\1\43\1\44\30\5";
 
   private static int [] zzUnpackAction() {
     int [] result = new int[140];
@@ -140,8 +140,8 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
     "\1\31\1\10\1\32\3\10\1\33\1\10\1\34\1\35"+
     "\1\36\1\10\1\2\1\10\1\37\1\40\53\0\1\4"+
     "\52\0\2\7\47\0\2\41\1\0\1\41\14\0\21\41"+
-    "\1\0\1\41\1\0\1\41\22\0\1\42\50\0\1\43"+
-    "\50\0\1\44\50\0\1\45\32\0\2\41\1\0\1\41"+
+    "\1\0\1\41\1\0\1\41\20\0\1\42\50\0\1\43"+
+    "\50\0\1\44\50\0\1\45\34\0\2\41\1\0\1\41"+
     "\14\0\1\41\1\46\17\41\1\0\1\41\1\0\1\41"+
     "\4\0\2\41\1\0\1\41\14\0\3\41\1\47\15\41"+
     "\1\0\1\41\1\0\1\41\4\0\2\41\1\0\1\41"+
@@ -769,175 +769,180 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
         case 1: 
           { throw new Error("Caracter ilegal <"+yytext()+">");
           }
-        case 36: break;
+        case 37: break;
         case 2: 
           { System.out.print(yytext());
           }
-        case 37: break;
+        case 38: break;
         case 3: 
           { /* ignora el espacio */
           }
-        case 38: break;
+        case 39: break;
         case 4: 
           { System.out.print(yytext()); 
                           return symbol(sym.NUM, new Integer(yytext()));
           }
-        case 39: break;
+        case 40: break;
         case 5: 
           { System.out.print(yytext());
                           return symbol(sym.ID, new String(yytext()));
           }
-        case 40: break;
+        case 41: break;
         case 6: 
           { System.out.print(" + ");
                           return symbol(sym.OP_SUMA);
           }
-        case 41: break;
+        case 42: break;
         case 7: 
           { System.out.print(" - ");
                           return symbol(sym.OP_RESTA);
           }
-        case 42: break;
+        case 43: break;
         case 8: 
           { System.out.print(" * ");
                           return symbol(sym.OP_MULT);
           }
-        case 43: break;
+        case 44: break;
         case 9: 
           { System.out.print(" * ");
                           return symbol(sym.OP_DIV);
           }
-        case 44: break;
+        case 45: break;
         case 10: 
           { System.out.print(" ( ");
                           return symbol(sym.PARENIZQ);
           }
-        case 45: break;
+        case 46: break;
         case 11: 
           { System.out.print(" ) ");
                           return symbol(sym.PARENDER);
           }
-        case 46: break;
+        case 47: break;
         case 12: 
           { System.out.print(" { ");
                           return symbol(sym.LLAVIZQ);
           }
-        case 47: break;
+        case 48: break;
         case 13: 
           { System.out.print(" } ");
                           return symbol(sym.LLAVDER);
           }
-        case 48: break;
+        case 49: break;
         case 14: 
+          { System.out.print(" = ");
+                          return symbol(sym.ASIGN, new String(yytext()));
+          }
+        case 50: break;
+        case 15: 
           { System.out.print(" < ");
                           return symbol(sym.MENQUE, new String(yytext()));
           }
-        case 49: break;
-        case 15: 
+        case 51: break;
+        case 16: 
           { System.out.print(" > ");
                           return symbol(sym.MAYQUE, new String(yytext()));
           }
-        case 50: break;
-        case 16: 
-          { System.out.print(" <= ");
-                          return symbol(sym.MENIGUAL, new String(yytext()));
-          }
-        case 51: break;
-        case 17: 
-          { System.out.print(" >= ");
-                          return symbol(sym.MAYIGUAL, new String(yytext()));
-          }
         case 52: break;
-        case 18: 
+        case 17: 
           { System.out.print(" == ");
                           return symbol(sym.IGUAL, new String(yytext()));
           }
         case 53: break;
+        case 18: 
+          { System.out.print(" <= ");
+                          return symbol(sym.MENIGUAL, new String(yytext()));
+          }
+        case 54: break;
         case 19: 
+          { System.out.print(" >= ");
+                          return symbol(sym.MAYIGUAL, new String(yytext()));
+          }
+        case 55: break;
+        case 20: 
           { System.out.print(" != ");
                           return symbol(sym.DISTINTO, new String(yytext()));
           }
-        case 54: break;
-        case 20: 
+        case 56: break;
+        case 21: 
           { System.out.print(" si ");
                           return symbol(sym.SI, new String(yytext()));
           }
-        case 55: break;
-        case 21: 
+        case 57: break;
+        case 22: 
           { System.out.print("true");
                           return symbol(sym.TRUE);
           }
-        case 56: break;
-        case 22: 
+        case 58: break;
+        case 23: 
           { System.out.print(" sino ");
                           return symbol(sym.SINO, new String(yytext()));
           }
-        case 57: break;
-        case 23: 
+        case 59: break;
+        case 24: 
           { System.out.print(" haga ");
                           return symbol(sym.HAGA, new String(yytext()));
           }
-        case 58: break;
-        case 24: 
+        case 60: break;
+        case 25: 
           { System.out.print(" recto ");
                           return symbol(sym.RECTO, new String(yytext()));
           }
-        case 59: break;
-        case 25: 
+        case 61: break;
+        case 26: 
           { System.out.print("false");
                           return symbol(sym.FALSE);
           }
-        case 60: break;
-        case 26: 
+        case 62: break;
+        case 27: 
           { System.out.print(" medio ");
                           return symbol(sym.MEDIO, new String(yytext()));
           }
-        case 61: break;
-        case 27: 
+        case 63: break;
+        case 28: 
           { System.out.print(" mover ");
                           return symbol(sym.MOVER, new String(yytext()));
           }
-        case 62: break;
-        case 28: 
+        case 64: break;
+        case 29: 
           { System.out.print(" anular ");
                           return symbol(sym.ANULAR, new String(yytext()));
           }
-        case 63: break;
-        case 29: 
+        case 65: break;
+        case 30: 
           { System.out.print(" índice ");
                           return symbol(sym.INDICE, new String(yytext()));
           }
-        case 64: break;
-        case 30: 
+        case 66: break;
+        case 31: 
           { System.out.print(" pulgar ");
                           return symbol(sym.PULGAR, new String(yytext()));
           }
-        case 65: break;
-        case 31: 
+        case 67: break;
+        case 32: 
           { System.out.print(" meñique ");
                           return symbol(sym.MENIQUE, new String(yytext()));
           }
-        case 66: break;
-        case 32: 
+        case 68: break;
+        case 33: 
           { System.out.print(" entonces ");
                           return symbol(sym.ENTONCES, new String(yytext()));
           }
-        case 67: break;
-        case 33: 
+        case 69: break;
+        case 34: 
           { System.out.print(" circular ");
                           return symbol(sym.CIRCULAR, new String(yytext()));
           }
-        case 68: break;
-        case 34: 
+        case 70: break;
+        case 35: 
           { System.out.print(" mientras ");
                           return symbol(sym.MIENTRAS, new String(yytext()));
           }
-        case 69: break;
-        case 35: 
+        case 71: break;
+        case 36: 
           { System.out.print("declarar ");
                           return symbol(sym.DECLARAR, new String(yytext()));
           }
-        case 70: break;
+        case 72: break;
         default: 
           if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
             zzAtEOF = true;

@@ -47,6 +47,8 @@ Id = [a-zA-Z|_]([a-zA-Z|0-9]{0,31})
     "}"                {  System.out.print(" } ");
                           return symbol(sym.LLAVDER);  }
 
+    "="                {  System.out.print(" = ");
+                          return symbol(sym.ASIGN, new String(yytext()));    }
     "<"                {  System.out.print(" < ");
                           return symbol(sym.MENQUE, new String(yytext()));   }
     ">"                {  System.out.print(" > ");
@@ -101,6 +103,7 @@ Id = [a-zA-Z|_]([a-zA-Z|0-9]{0,31})
                           return symbol(sym.NUM, new Integer(yytext()));   }
 
     {Newline}          {  System.out.print(yytext());  }
+
     {Espacio}          {  /* ignora el espacio */      } 
 
 }

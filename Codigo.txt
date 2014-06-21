@@ -1,5 +1,6 @@
 declarar variable
-mientras (32>21) haga { mover meñique recto 0
+variable= 4 + 3 -1 * 2
+mientras (variable>3) haga { mover meñique recto 0
 mover anular recto 25
 mover medio recto 50
 mover índice recto 70
@@ -19,4 +20,5 @@ mover anular circular 25
 mover medio circular 50
 mover índice circular 50
 mover pulgar circular 100
+variable=variable-1
 }
